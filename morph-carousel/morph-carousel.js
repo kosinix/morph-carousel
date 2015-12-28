@@ -13,6 +13,7 @@
         init : function( settings ) {
             //Default plugin settings
             var defaults = {
+                scrollSpeed: 100,
                 cssClass: {
                     carousel: 'morph-carousel',
                     inner: 'morph-carousel-inner',
@@ -93,8 +94,6 @@
         var viewPort = carousel.find( '.'+settings.cssClass.viewPort ),
             strip = carousel.find( '.'+settings.cssClass.strip ),
             items = carousel.find( '.'+settings.cssClass.item ),
-            prev = carousel.find( '.'+settings.cssClass.prev ),
-            next = carousel.find( '.'+settings.cssClass.next ),
 
             itemWidth = items.eq(0).outerWidth(),
             itemHeight = items.eq(0).outerHeight(),
@@ -123,9 +122,7 @@
 
         carouselObj.on('click', '.'+settings.cssClass.next, function(e){
             var carousel = $(this).parents( '.'+settings.cssClass.carousel ),
-                viewPort = carousel.find( '.'+settings.cssClass.viewPort ),
                 strip = carousel.find( '.'+settings.cssClass.strip ),
-                items = carousel.find( '.'+settings.cssClass.item ),
                 prev = carousel.find( '.'+settings.cssClass.prev ),
                 next = carousel.find( '.'+settings.cssClass.next ),
 
@@ -140,14 +137,12 @@
                 $(this).prop('disabled', true);
             }
 
-            strip.animate({'left': carouselVars.left}, 100);
+            strip.animate({'left': carouselVars.left}, settings.scrollSpeed);
 
 
         }).on('click', '.'+settings.cssClass.prev, function(e){
             var carousel = $(this).parents( '.'+settings.cssClass.carousel ),
-                viewPort = carousel.find( '.'+settings.cssClass.viewPort ),
                 strip = carousel.find( '.'+settings.cssClass.strip ),
-                items = carousel.find( '.'+settings.cssClass.item ),
                 prev = carousel.find( '.'+settings.cssClass.prev ),
                 next = carousel.find( '.'+settings.cssClass.next ),
 
@@ -162,7 +157,7 @@
                 $(this).prop('disabled', true);
             }
 
-            strip.animate({'left': carouselVars.left}, 100);
+            strip.animate({'left': carouselVars.left}, settings.scrollSpeed);
 
         });
 
