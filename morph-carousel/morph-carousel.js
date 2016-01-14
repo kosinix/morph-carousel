@@ -13,7 +13,7 @@
         init : function( settings ) {
             //Default plugin settings
             var defaults = {
-                scrollSpeed: 100,
+                scrollSpeed: 200,
                 cssClass: {
                     carousel: 'morph-carousel',
                     inner: 'morph-carousel-inner',
@@ -22,6 +22,15 @@
                     item: 'morph-carousel-item',
                     prev: 'morph-carousel-prev',
                     next: 'morph-carousel-next'
+                },
+                initHook: function(carousel, settings){
+                    _initialize( carousel, settings )
+                },
+                prevHook: function( settings, carousel, event ){
+                    _defaultPrevHook( settings, carousel, event );
+                },
+                nextHook: function( settings, carousel, event ){
+                    _defaultNextHook( settings, carousel, event );
                 }
             };
             settings = $.extend(true, {}, defaults, settings); // Combine defaults and user-provided settings
@@ -47,7 +56,7 @@
                     );
                     items.appendTo(carousel.find('.'+settings.cssClass.strip));
 
-                    _initialize( carousel, settings );
+                    settings.initHook( carousel, settings );
                     _hookEvents( carousel, settings );
 
                     carousel.find('.'+settings.cssClass.prev).prop('disabled', true);
@@ -64,11 +73,9 @@
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist.' );
         }
         return false;
-    }
+    };
 
     /*** Private Functions ***/
     function _initialize( carousel, settings ) {
@@ -79,109 +86,126 @@
             prev = carousel.find( '.'+settings.cssClass.prev ),
             next = carousel.find( '.'+settings.cssClass.next ),
 
-            carouselVars = _computeVars( carousel, settings);
+            stripWidth = _getStripWidth(items),
+            itemHeight = items.eq(0).outerHeight(),
+            stripHeight = itemHeight;
 
-        strip.width( carouselVars.stripWidth );
-        viewPort.height( carouselVars.stripHeight );
-        inner.css('maxWidth', carouselVars.stripWidth+'px');
+        strip.width( stripWidth );
+        viewPort.height( stripHeight );
+        inner.css('maxWidth', stripWidth+'px');
+
+        strip.css('transition', 'all '+settings.scrollSpeed+'ms ease');
 
         prev.prop('disabled', false);
         next.prop('disabled', false);
 
     }
 
-    function _computeVars( carousel, settings ){
-        var viewPort = carousel.find( '.'+settings.cssClass.viewPort ),
-            strip = carousel.find( '.'+settings.cssClass.strip ),
-            items = carousel.find( '.'+settings.cssClass.item ),
+    function _hookEvents( carousel, settings ) {
 
-            itemWidth = items.eq(0).outerWidth(),
-            itemHeight = items.eq(0).outerHeight(),
-            viewPortWidth = viewPort.width(),
-            stripWidth = itemWidth * items.length,
-            stripHeight = itemHeight,
-            scrollAmount = Math.floor(viewPortWidth / itemWidth) * itemWidth,
-            prevLimit = 0,
-            nextLimit = 0 - Math.floor( stripWidth - viewPortWidth),
-            left = parseInt(strip.position().left);
+        carousel.on('click', '.'+settings.cssClass.next, function(e){
 
-        return {
-            itemWidth: itemWidth,
-            itemHeight: itemHeight,
-            viewPortWidth: viewPortWidth,
-            stripWidth:stripWidth,
-            stripHeight:stripHeight,
-            scrollAmount:scrollAmount,
-            prevLimit:prevLimit,
-            nextLimit:nextLimit,
-            left:left
-        }
-    }
-
-    function _hookEvents( carouselObj, settings ) {
-
-        carouselObj.on('click', '.'+settings.cssClass.next, function(e){
-            var carousel = $(this).parents( '.'+settings.cssClass.carousel ),
-                strip = carousel.find( '.'+settings.cssClass.strip ),
-                prev = carousel.find( '.'+settings.cssClass.prev ),
-                next = carousel.find( '.'+settings.cssClass.next ),
-
-                carouselVars = _computeVars( carousel, settings );
-
-            prev.prop('disabled', false);
-            next.prop('disabled', false);
-
-            carouselVars.left -= carouselVars.scrollAmount;
-            if(carouselVars.left < carouselVars.nextLimit ) {
-                carouselVars.left = carouselVars.nextLimit;
-                $(this).prop('disabled', true);
-            }
-
-            strip.animate({'left': carouselVars.left}, settings.scrollSpeed);
+            settings.nextHook( settings, $(this).parents( '.'+settings.cssClass.carousel ), e);
 
 
         }).on('click', '.'+settings.cssClass.prev, function(e){
-            var carousel = $(this).parents( '.'+settings.cssClass.carousel ),
-                strip = carousel.find( '.'+settings.cssClass.strip ),
-                prev = carousel.find( '.'+settings.cssClass.prev ),
-                next = carousel.find( '.'+settings.cssClass.next ),
 
-                carouselVars = _computeVars( carousel, settings );
-
-            prev.prop('disabled', false);
-            next.prop('disabled', false);
-
-            carouselVars.left += carouselVars.scrollAmount;
-            if( carouselVars.left > 0 ) {
-                carouselVars.left = 0;
-                $(this).prop('disabled', true);
-            }
-
-            strip.animate({'left': carouselVars.left}, settings.scrollSpeed);
+            settings.prevHook( settings, $(this).parents( '.'+settings.cssClass.carousel ), e);
 
         });
-
-        $(window).on("resize", function( event ) {
-            _on_resize(function () {
-
-                $( '.'+settings.cssClass.carousel ).each(function () {
-
-                    _initialize($(this), settings);
-
-                });
-            })();
-        });
-
 
     }
 
-    //Debounced resize - https://github.com/louisremi/jquery-smartresize
-    function _on_resize(c,t){
-        onresize=function(){
-            clearTimeout(t);
-            t=setTimeout(c,150)
-        };
-        return c
-    };
+    function _defaultNextHook( settings, carousel, event){
+        var strip = carousel.find( '.'+settings.cssClass.strip ),
+            prev = carousel.find( '.'+settings.cssClass.prev ),
+            next = carousel.find( '.'+settings.cssClass.next),
+            viewPort = carousel.find( '.'+settings.cssClass.viewPort ),
+            items = carousel.find( '.'+settings.cssClass.item ),
+
+            itemsPos = _itemsPosArray(items),
+            viewPortWidth = viewPort.width(),
+            stripWidth = _getStripWidth(items),
+            nextLimit = -Math.floor( stripWidth - viewPortWidth),
+            scrollAmount = nextLimit,
+            left = parseInt(strip.position().left);
+
+        for(i=0; i<itemsPos.length; ++i){
+            if(itemsPos[i] > (viewPortWidth + (0-left)) && i>0){
+                //console.log('if (', itemsPos[i], '>', viewPortWidth, '+', (0-left), '=', viewPortWidth + (0-left) , ')');
+                scrollAmount = -itemsPos[i-1]; // Negate
+
+                break;
+            }
+        }
+
+        // Overflow check
+        if(scrollAmount < nextLimit ) {
+            scrollAmount = nextLimit;
+        }
+
+        prev.prop('disabled', false);
+        next.prop('disabled', false);
+
+        if(scrollAmount == nextLimit ) {
+            next.prop('disabled', true);
+        }
+
+        strip.css('left', scrollAmount+'px');
+
+    }
+
+    function _defaultPrevHook( settings, carousel, event){
+        var strip = carousel.find( '.'+settings.cssClass.strip ),
+            prev = carousel.find( '.'+settings.cssClass.prev ),
+            next = carousel.find( '.'+settings.cssClass.next),
+            viewPort = carousel.find( '.'+settings.cssClass.viewPort ),
+            items = carousel.find( '.'+settings.cssClass.item ),
+
+            itemsPos = _itemsPosArray(items),
+            viewPortWidth = viewPort.width(),
+            scrollAmount = 0,
+            left = parseInt(strip.position().left);
+
+        for(i=itemsPos.length; i>0; --i){
+            if(itemsPos[i] < (Math.abs(left) - viewPortWidth) && i<itemsPos.length){
+                //console.log('if (', itemsPos[i], '<', Math.abs(left), '-', viewPortWidth, '=', (Math.abs(left) - viewPortWidth), ')');
+                scrollAmount = -itemsPos[i+1]; // Negate
+
+                break;
+            }
+        }
+
+        // Overflow check
+        if(scrollAmount > 0 ) {
+            scrollAmount = 0;
+        }
+
+        prev.prop('disabled', false);
+        next.prop('disabled', false);
+
+        if(scrollAmount == 0 ) {
+            prev.prop('disabled', true);
+        }
+
+        strip.css('left', scrollAmount+'px');
+
+    }
+
+    function _getStripWidth(items){
+        var stripWidth = 0;
+        items.each(function(i,e){
+            stripWidth += $(e).outerWidth();
+        });
+        return stripWidth;
+    }
+
+    function _itemsPosArray(items){
+        var itemsPos = [];
+        items.each(function(i,e){
+            itemsPos[i] = $(e).position().left;
+        });
+        return itemsPos;
+    }
 
 })(jQuery);
