@@ -99,6 +99,9 @@
         prev.prop('disabled', false);
         next.prop('disabled', false);
 
+        items.eq(0).find('img').load(function () {
+            viewPort.height( $(this).parent().outerHeight() ); // Wait for image to load to get correct height
+        })
     }
 
     function _hookEvents( carousel, settings ) {
