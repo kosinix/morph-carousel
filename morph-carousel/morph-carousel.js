@@ -14,6 +14,7 @@
             //Default plugin settings
             var defaults = {
                 scrollSpeed: 200,
+                wrap: false,
                 cssClass: {
                     carousel: 'morph-carousel',
                     inner: 'morph-carousel-inner',
@@ -86,12 +87,10 @@
             prev = carousel.find( '.'+settings.cssClass.prev ),
             next = carousel.find( '.'+settings.cssClass.next ),
 
-            stripWidth = _getStripWidth(items),
-            itemHeight = items.eq(0).outerHeight(),
-            stripHeight = itemHeight;
+            stripWidth = _getStripWidth(items);
 
         strip.width( stripWidth );
-        viewPort.height( stripHeight );
+        viewPort.height( items.eq(0).outerHeight() );
         inner.css('maxWidth', stripWidth+'px');
 
         strip.css('transition', 'all '+settings.scrollSpeed+'ms ease');
@@ -99,9 +98,12 @@
         prev.prop('disabled', false);
         next.prop('disabled', false);
 
-        items.eq(0).find('img').load(function () {
-            viewPort.height( $(this).parent().outerHeight() ); // Wait for image to load to get correct height
-        })
+
+        items.eq(0).find('img').one("load", function() {
+            viewPort.height( items.eq(0).outerHeight() ); // on load
+        }).each(function() {
+            if(this.complete) $(this).load(); // Run load for cached images
+        });
     }
 
     function _hookEvents( carousel, settings ) {
@@ -142,20 +144,42 @@
             }
         }
 
-        // Overflow check
-        if(scrollAmount < nextLimit ) {
-            scrollAmount = nextLimit;
+        if( settings.wrap ) {
+            // Overflow check
+            if (scrollAmount < nextLimit) {
+                scrollAmount = nextLimit;
+            }
+
+            if (carousel.data('lastReached')) {
+                scrollAmount = 0;
+                carousel.data('lastReached', false);
+                carousel.data('firstReached', true);
+            }
+
+            prev.prop('disabled', false);
+            next.prop('disabled', false);
+
+            if (scrollAmount == nextLimit) {
+                carousel.data('lastReached', true);
+            }
+
+            strip.css('left', scrollAmount + 'px');
+
+        } else {
+            // Overflow check
+            if (scrollAmount < nextLimit) {
+                scrollAmount = nextLimit;
+            }
+
+            prev.prop('disabled', false);
+            next.prop('disabled', false);
+
+            if (scrollAmount == nextLimit) {
+                next.prop('disabled', true);
+            }
+
+            strip.css('left', scrollAmount + 'px');
         }
-
-        prev.prop('disabled', false);
-        next.prop('disabled', false);
-
-        if(scrollAmount == nextLimit ) {
-            next.prop('disabled', true);
-        }
-
-        strip.css('left', scrollAmount+'px');
-
     }
 
     function _defaultPrevHook( settings, carousel, event){
@@ -167,32 +191,54 @@
 
             itemsPos = _itemsPosArray(items),
             viewPortWidth = viewPort.width(),
+            stripWidth = _getStripWidth(items),
+            nextLimit = -Math.floor( stripWidth - viewPortWidth),
             scrollAmount = 0,
             left = parseInt(strip.position().left);
 
         for(i=itemsPos.length; i>0; --i){
             if(itemsPos[i] < (Math.abs(left) - viewPortWidth) && i<itemsPos.length){
-                //console.log('if (', itemsPos[i], '<', Math.abs(left), '-', viewPortWidth, '=', (Math.abs(left) - viewPortWidth), ')');
                 scrollAmount = -itemsPos[i+1]; // Negate
 
                 break;
             }
         }
 
-        // Overflow check
-        if(scrollAmount > 0 ) {
-            scrollAmount = 0;
+        if( settings.wrap ) {
+            // Overflow check
+            if (scrollAmount > 0) {
+                scrollAmount = 0;
+            }
+            if (carousel.data('firstReached')) {
+                scrollAmount = nextLimit;
+                carousel.data('firstReached', false);
+                carousel.data('lastReached', true);
+            }
+            prev.prop('disabled', false);
+            next.prop('disabled', false);
+
+            if (scrollAmount == 0) {
+                carousel.data('firstReached', true);
+            }
+
+            strip.css('left', scrollAmount + 'px');
+
+        } else {
+
+            // Overflow check
+            if(scrollAmount > 0 ) {
+                scrollAmount = 0;
+            }
+
+            prev.prop('disabled', false);
+            next.prop('disabled', false);
+
+            if(scrollAmount == 0 ) {
+                prev.prop('disabled', true);
+            }
+
+            strip.css('left', scrollAmount+'px');
         }
-
-        prev.prop('disabled', false);
-        next.prop('disabled', false);
-
-        if(scrollAmount == 0 ) {
-            prev.prop('disabled', true);
-        }
-
-        strip.css('left', scrollAmount+'px');
-
     }
 
     function _getStripWidth(items){
