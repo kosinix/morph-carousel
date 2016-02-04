@@ -36,10 +36,14 @@
     float: left;
     padding: 6px 3px;
 }
+.morph-carousel-item a{
+    display: block;
+}
 .morph-carousel-item img {
     display: block;
     margin: 0;
     padding: 0;
+    max-width: none;
 }
 .morph-carousel-prev,
 .morph-carousel-next {
@@ -52,6 +56,7 @@
     cursor: pointer;
     opacity: 0.9;
     border: 0;
+    padding: 0;
 }
 .morph-carousel-prev {
     left: -25px; /* Must match prev button width*/
