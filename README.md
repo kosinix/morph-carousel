@@ -1,9 +1,8 @@
 # Morph Carousel
 
-A no-frills lightweight (3KB) carousel. Period.
+A no-frills lightweight carousel. Period.
 
-## Usage
-See [demo](http://kosinix.github.io/morph-carousel/)
+[Website](http://kosinix.github.io/morph-carousel/)
 
 ## License
 
