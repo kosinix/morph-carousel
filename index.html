@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>A no-frills lightweight carousel. Period.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,62 +9,66 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="morph-carousel/morph-carousel.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Morph Carousel</h1>
-      <h2 class="project-tagline">A no-frills lightweight carousel. Period.</h2>
-      <a href="https://github.com/kosinix/morph-carousel" class="btn">View on GitHub</a>
-      <a href="https://github.com/kosinix/morph-carousel/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/kosinix/morph-carousel/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+</head>
+<body>
+<section class="page-header">
+    <h1 class="project-name">Morph Carousel</h1>
 
-    <section class="main-content">
-      <h3>Carousel Demo</h3>
-      <p>A no-frills lightweight carousel. Period.</p>
-      <div id="carousel-default" class="morph-carousel">
+    <h2 class="project-tagline">A no-frills lightweight carousel. Period.</h2>
+    <a href="https://github.com/kosinix/morph-carousel" class="btn">View on GitHub</a>
+    <a href="https://github.com/kosinix/morph-carousel/zipball/master" class="btn">Download .zip</a>
+    <a href="https://github.com/kosinix/morph-carousel/tarball/master" class="btn">Download .tar.gz</a>
+</section>
+
+<section class="main-content">
+    <h3>Carousel Demo</h3>
+
+    <p>A no-frills lightweight carousel. Period.</p>
+
+    <div id="carousel-default" class="morph-carousel">
         <div class="morph-carousel-item">
-          <img src="images/1.jpg" alt="image">
+            <img src="images/1.jpg" alt="image">
         </div>
         <div class="morph-carousel-item">
-          <img src="images/2.jpg" alt="image">
+            <img src="images/2.jpg" alt="image">
         </div>
         <div class="morph-carousel-item">
-          <img src="images/3.jpg" alt="image">
+            <img src="images/3.jpg" alt="image">
         </div>
         <div class="morph-carousel-item">
-          <img src="images/4.jpg" alt="image">
+            <img src="images/4.jpg" alt="image">
         </div>
         <div class="morph-carousel-item">
-          <img src="images/5.jpg" alt="image">
-        </div>
-          <div class="morph-carousel-item">
-              <img src="images/5.jpg" alt="image">
-          </div>
-        <div class="morph-carousel-item">
-          <img src="images/6.jpg" alt="image">
+            <img src="images/5.jpg" alt="image">
         </div>
         <div class="morph-carousel-item">
-          <img src="images/7.jpg" alt="image">
+            <img src="images/5.jpg" alt="image">
         </div>
         <div class="morph-carousel-item">
-          <img src="images/8.jpg" alt="image">
+            <img src="images/6.jpg" alt="image">
         </div>
         <div class="morph-carousel-item">
-          <img src="images/9.jpg" alt="image">
+            <img src="images/7.jpg" alt="image">
         </div>
-      </div>
-      <h3>Installation</h3>
-      <p>Include the styles in head</p>
+        <div class="morph-carousel-item">
+            <img src="images/8.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/9.jpg" alt="image">
+        </div>
+    </div>
+    <h3>Installation</h3>
+
+    <p>Include the styles in head</p>
     <pre>
 &lt;link rel="stylesheet" href="css/morph-carousel.css"&gt;
     </pre>
-      <p>Include jQuery and the script before the closing body tag:</p>
+    <p>Include jQuery and the script before the closing body tag:</p>
     <pre>
 &lt;script src="js/jquery-1.11.3.min.js">&lt;/script>
 &lt;script src="js/morph-carousel.min.js">&lt;/script>
     </pre>
-      <p>Prepare the required mark-up:</p>
+    <p>Prepare the required mark-up:</p>
     <pre>
 &lt;div class="morph-carousel">
     &lt;div class="morph-carousel-item">
@@ -76,8 +80,9 @@
     &lt;/div>
 &lt;/div>
     </pre>
-        <h3>Usage</h3>
-      <p>Initialize the carousel:</p>
+    <h3>Usage</h3>
+
+    <p>Initialize the carousel:</p>
     <pre>
 &lt;script>
     jQuery( document ).ready(function($) {
@@ -86,8 +91,9 @@
 &lt;/script>
     </pre>
 
-        <h3>Options</h3>
-        <p>These are the default options:</p>
+    <h3>Options</h3>
+
+    <p>These are the default options:</p>
         <pre>
 &lt;script&gt;
     jQuery( document ).ready(function($) {
@@ -107,7 +113,7 @@
     });
 &lt;/script&gt;
         </pre>
-        <p>Enable wrapping:</p>
+    <p>Enable wrapping:</p>
                 <pre>
 &lt;script&gt;
     jQuery( document ).ready(function($) {
@@ -117,55 +123,58 @@
     });
 &lt;/script&gt;
         </pre>
-        <div id="carousel-wrap" class="morph-carousel">
-            <div class="morph-carousel-item">
-                <img src="images/1.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/2.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/3.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/4.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/5.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/5.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/6.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/7.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/8.jpg" alt="image">
-            </div>
-            <div class="morph-carousel-item">
-                <img src="images/9.jpg" alt="image">
-            </div>
+    <div id="carousel-wrap" class="morph-carousel">
+        <div class="morph-carousel-item">
+            <img src="images/1.jpg" alt="image">
         </div>
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/kosinix/morph-carousel">Morph Carousel</a> is maintained by <a href="https://github.com/kosinix">kosinix</a>.</span>
+        <div class="morph-carousel-item">
+            <img src="images/2.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/3.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/4.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/5.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/5.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/6.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/7.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/8.jpg" alt="image">
+        </div>
+        <div class="morph-carousel-item">
+            <img src="images/9.jpg" alt="image">
+        </div>
+    </div>
+    <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/kosinix/morph-carousel">Morph Carousel</a> is maintained by <a
+                href="https://github.com/kosinix">kosinix</a>.</span>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a
+                href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a
+                href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+    </footer>
 
-    </section>
+</section>
 
-    <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="morph-carousel/morph-carousel.min.js"></script>
-    <script>
-      jQuery( document ).ready(function($) {
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="morph-carousel/morph-carousel.min.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
         $('#carousel-default').morphCarousel();
         $('#carousel-wrap').morphCarousel({
             wrap: true
         });
-      });
-    </script>
-  </body>
+    });
+</script>
+</body>
 </html>
