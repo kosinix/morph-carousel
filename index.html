@@ -22,7 +22,7 @@
     <section class="main-content">
       <h3>Carousel Demo</h3>
       <p>A no-frills lightweight carousel. Period.</p>
-      <div class="morph-carousel">
+      <div id="carousel-default" class="morph-carousel">
         <div class="morph-carousel-item">
           <img src="images/1.jpg" alt="image">
         </div>
@@ -38,6 +38,9 @@
         <div class="morph-carousel-item">
           <img src="images/5.jpg" alt="image">
         </div>
+          <div class="morph-carousel-item">
+              <img src="images/5.jpg" alt="image">
+          </div>
         <div class="morph-carousel-item">
           <img src="images/6.jpg" alt="image">
         </div>
@@ -78,13 +81,74 @@
     <pre>
 &lt;script>
     jQuery( document ).ready(function($) {
-        $('.morph-carousel').morphCarousel();
+        $('#carousel-default').morphCarousel();
     });
 &lt;/script>
     </pre>
 
-      <p>Or just <a href="https://support.google.com/adsense/answer/181951?hl=en">view source</a> this page.</p>
-
+        <h3>Options</h3>
+        <p>These are the default options:</p>
+        <pre>
+&lt;script&gt;
+    jQuery( document ).ready(function($) {
+        $('#carousel').morphCarousel({
+            scrollSpeed: 200,
+            wrap: false,
+            cssClass: {
+                carousel: 'morph-carousel',
+                inner: 'morph-carousel-inner',
+                viewPort: 'morph-carousel-viewport',
+                strip: 'morph-carousel-strip',
+                item: 'morph-carousel-item',
+                prev: 'morph-carousel-prev',
+                next: 'morph-carousel-next'
+            }
+        });
+    });
+&lt;/script&gt;
+        </pre>
+        <p>Enable wrapping:</p>
+                <pre>
+&lt;script&gt;
+    jQuery( document ).ready(function($) {
+        $('#carousel-wrap').morphCarousel({
+            wrap: true
+        });
+    });
+&lt;/script&gt;
+        </pre>
+        <div id="carousel-wrap" class="morph-carousel">
+            <div class="morph-carousel-item">
+                <img src="images/1.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/2.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/3.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/4.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/5.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/5.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/6.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/7.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/8.jpg" alt="image">
+            </div>
+            <div class="morph-carousel-item">
+                <img src="images/9.jpg" alt="image">
+            </div>
+        </div>
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/kosinix/morph-carousel">Morph Carousel</a> is maintained by <a href="https://github.com/kosinix">kosinix</a>.</span>
 
@@ -97,7 +161,10 @@
     <script src="morph-carousel/morph-carousel.min.js"></script>
     <script>
       jQuery( document ).ready(function($) {
-        $('.morph-carousel').morphCarousel();
+        $('#carousel-default').morphCarousel();
+        $('#carousel-wrap').morphCarousel({
+            wrap: true
+        });
       });
     </script>
   </body>
