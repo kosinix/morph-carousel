@@ -11,7 +11,6 @@
 (function($){
     var methods = {
         init : function( settings ) {
-            //Default plugin settings
             var defaults = {
                 scrollSpeed: 200,
                 wrap: false,
@@ -34,14 +33,14 @@
                     _defaultNextHook( settings, carousel, event );
                 }
             };
-            settings = $.extend(true, {}, defaults, settings); // Combine defaults and user-provided settings
+            settings = $.extend(true, {}, defaults, settings); /* Combine defaults and user-provided settings */
 
             return this.each(function() {
-                var carousel = $(this), // jQuery object of our element
+                var carousel = $(this), /* jQuery object of our element */
                     items = carousel.find('.'+settings.cssClass.item);
 
 
-                if('div' != carousel.prop('nodeName').toLowerCase()){ // Check if its a <div> tag
+                if('div' != carousel.prop('nodeName').toLowerCase()){ /* Check if its a <div> tag */
                     $.error( 'Not a DIV element' );
 
                 } else {
@@ -89,7 +88,6 @@
 
             stripWidth = _getStripWidth(items);
 
-        strip.width( stripWidth );
         viewPort.height( items.eq(0).outerHeight() );
         inner.css('maxWidth', stripWidth+'px');
 
@@ -98,11 +96,12 @@
         prev.prop('disabled', false);
         next.prop('disabled', false);
 
-
         items.eq(0).find('img').one("load", function() {
-            viewPort.height( items.eq(0).outerHeight() ); // on load
+            var h = items.eq(0).outerHeight(); /* On load provide height */
+            viewPort.height( h );
+            strip.height( h );
         }).each(function() {
-            if(this.complete) $(this).load(); // Run load for cached images
+            if(this.complete) $(this).load(); /* Ensure to run load for cached images */
         });
     }
 
