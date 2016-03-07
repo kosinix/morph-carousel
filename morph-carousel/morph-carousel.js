@@ -43,6 +43,7 @@
 
                 } else {
 
+                    /* Markup */
                     carousel.append(
                         '<div class="'+settings.cssClass.inner+'">'+
                             '<div class="'+settings.cssClass.viewPort+'">'+
@@ -88,7 +89,8 @@
             stripWidth = _getStripWidth(items);
 
         inner.css('maxWidth', stripWidth+'px');
-        
+
+        /* Compute strip width on after every image's load to get non zero values. */
         items.each(function(i,el){
             var $img = $(el).find('img');
             $img.one("load", function() {
@@ -105,7 +107,6 @@
         });
 
         viewPort.height( items.eq(0).outerHeight() );
-
 
         strip.css('transition', 'all '+settings.scrollSpeed+'ms ease');
 
@@ -156,14 +157,14 @@
         for(i=0; i<itemsPos.length; ++i){
             if(itemsPos[i] > (viewPortWidth + (0-left)) && i>0){
                 //console.log('if (', itemsPos[i], '>', viewPortWidth, '+', (0-left), '=', viewPortWidth + (0-left) , ')');
-                scrollAmount = -itemsPos[i-1]; // Negate
+                scrollAmount = -itemsPos[i-1]; /* Negate */
 
                 break;
             }
         }
 
         if( settings.wrap ) {
-            // Overflow check
+            /* Overflow check */
             if (scrollAmount < nextLimit) {
                 scrollAmount = nextLimit;
             }
@@ -184,7 +185,7 @@
             strip.css('left', scrollAmount + 'px');
 
         } else {
-            // Overflow check
+            /* Overflow check */
             if (scrollAmount < nextLimit) {
                 scrollAmount = nextLimit;
             }
@@ -216,14 +217,14 @@
 
         for(i=itemsPos.length; i>0; --i){
             if(itemsPos[i] < (Math.abs(left) - viewPortWidth) && i<itemsPos.length){
-                scrollAmount = -itemsPos[i+1]; // Negate
+                scrollAmount = -itemsPos[i+1]; /* Negate */
 
                 break;
             }
         }
 
         if( settings.wrap ) {
-            // Overflow check
+            /* Overflow check */
             if (scrollAmount > 0) {
                 scrollAmount = 0;
             }
@@ -242,8 +243,7 @@
             strip.css('left', scrollAmount + 'px');
 
         } else {
-
-            // Overflow check
+            /* Overflow check */
             if(scrollAmount > 0 ) {
                 scrollAmount = 0;
             }
