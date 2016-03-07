@@ -1,12 +1,10 @@
 /*
- * Morph Carousel 1.0.0
+ * Morph Carousel 2.1.2
  * https://github.com/kosinix/morph-carousel
  *
- *
  * Copyright 2015, Nico Amarilla
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
+ * License: GPLv3
+ * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 (function($){
     var methods = {
@@ -45,13 +43,14 @@
 
                 } else {
 
+                    /* Markup */
                     carousel.append(
                         '<div class="'+settings.cssClass.inner+'">'+
-                        '<div class="'+settings.cssClass.viewPort+'">'+
-                        '<div class="'+settings.cssClass.strip+'"></div>'+
-                        '</div>'+
-                        '<button class="'+settings.cssClass.prev+'"></button>'+
-                        '<button class="'+settings.cssClass.next+'"></button>'+
+                            '<div class="'+settings.cssClass.viewPort+'">'+
+                                '<div class="'+settings.cssClass.strip+'"></div>'+
+                            '</div>'+
+                            '<button class="'+settings.cssClass.prev+'"></button>'+
+                            '<button class="'+settings.cssClass.next+'"></button>'+
                         '</div>'
                     );
                     items.appendTo(carousel.find('.'+settings.cssClass.strip));
@@ -91,6 +90,7 @@
 
         inner.css('maxWidth', stripWidth+'px');
 
+        /* Compute strip width on after every image's load to get non zero values. */
         items.each(function(i,el){
             var $img = $(el).find('img');
             $img.one("load", function() {
@@ -107,7 +107,6 @@
         });
 
         viewPort.height( items.eq(0).outerHeight() );
-
 
         strip.css('transition', 'all '+settings.scrollSpeed+'ms ease');
 
@@ -158,14 +157,14 @@
         for(i=0; i<itemsPos.length; ++i){
             if(itemsPos[i] > (viewPortWidth + (0-left)) && i>0){
                 //console.log('if (', itemsPos[i], '>', viewPortWidth, '+', (0-left), '=', viewPortWidth + (0-left) , ')');
-                scrollAmount = -itemsPos[i-1]; // Negate
+                scrollAmount = -itemsPos[i-1]; /* Negate */
 
                 break;
             }
         }
 
         if( settings.wrap ) {
-            // Overflow check
+            /* Overflow check */
             if (scrollAmount < nextLimit) {
                 scrollAmount = nextLimit;
             }
@@ -186,7 +185,7 @@
             strip.css('left', scrollAmount + 'px');
 
         } else {
-            // Overflow check
+            /* Overflow check */
             if (scrollAmount < nextLimit) {
                 scrollAmount = nextLimit;
             }
@@ -218,14 +217,14 @@
 
         for(i=itemsPos.length; i>0; --i){
             if(itemsPos[i] < (Math.abs(left) - viewPortWidth) && i<itemsPos.length){
-                scrollAmount = -itemsPos[i+1]; // Negate
+                scrollAmount = -itemsPos[i+1]; /* Negate */
 
                 break;
             }
         }
 
         if( settings.wrap ) {
-            // Overflow check
+            /* Overflow check */
             if (scrollAmount > 0) {
                 scrollAmount = 0;
             }
@@ -244,8 +243,7 @@
             strip.css('left', scrollAmount + 'px');
 
         } else {
-
-            // Overflow check
+            /* Overflow check */
             if(scrollAmount > 0 ) {
                 scrollAmount = 0;
             }
