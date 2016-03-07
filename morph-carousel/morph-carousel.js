@@ -86,10 +86,28 @@
             prev = carousel.find( '.'+settings.cssClass.prev ),
             next = carousel.find( '.'+settings.cssClass.next ),
 
+            imgCount = 0,
             stripWidth = _getStripWidth(items);
 
-        viewPort.height( items.eq(0).outerHeight() );
         inner.css('maxWidth', stripWidth+'px');
+        
+        items.each(function(i,el){
+            var $img = $(el).find('img');
+            $img.one("load", function() {
+                var w = $(this).outerWidth(); /* On load provide height */
+                stripWidth += w;
+                imgCount++;
+                if(imgCount>=items.length){
+                    inner.css('maxWidth', stripWidth+'px');
+                }
+            }).each(function() {
+                if(this.complete) $(this).load(); /* Ensure to run load for cached images */
+            });
+
+        });
+
+        viewPort.height( items.eq(0).outerHeight() );
+
 
         strip.css('transition', 'all '+settings.scrollSpeed+'ms ease');
 
@@ -103,6 +121,9 @@
         }).each(function() {
             if(this.complete) $(this).load(); /* Ensure to run load for cached images */
         });
+
+
+
     }
 
     function _hookEvents( carousel, settings ) {
