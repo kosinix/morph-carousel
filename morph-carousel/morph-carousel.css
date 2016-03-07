@@ -14,7 +14,7 @@
     position: relative;
 }
 .morph-carousel > .morph-carousel-item{
-    visibility: hidden;
+    display: none;
 }
 .morph-carousel-viewport{
     /*height: x; !* calculate *!*/
@@ -28,12 +28,12 @@
 }
 .morph-carousel-strip {
     position: absolute;
-    /*width: x;  !* calculate *!*/
     left: 0;
     top: 0;
+    white-space: nowrap;
 }
 .morph-carousel-item {
-    float: left;
+    display: inline-block;
     padding: 6px 3px;
 }
 .morph-carousel-item a{

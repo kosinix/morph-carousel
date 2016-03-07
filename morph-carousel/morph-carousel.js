@@ -11,7 +11,6 @@
 (function($){
     var methods = {
         init : function( settings ) {
-            /* Default plugin settings */
             var defaults = {
                 scrollSpeed: 200,
                 wrap: false,
@@ -41,7 +40,7 @@
                     items = carousel.find('.'+settings.cssClass.item);
 
 
-                if('div' != carousel.prop('nodeName').toLowerCase()){ /* Check if its a <div> tag  */
+                if('div' != carousel.prop('nodeName').toLowerCase()){ /* Check if its a <div> tag */
                     $.error( 'Not a DIV element' );
 
                 } else {
@@ -69,7 +68,7 @@
     /*** Plugin Main ***/
     $.fn.morphCarousel = function(method) {
 
-        /* Method calling logic */
+        // Method calling logic
         if ( methods[method] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
@@ -89,7 +88,6 @@
 
             stripWidth = _getStripWidth(items);
 
-        strip.width( stripWidth );
         viewPort.height( items.eq(0).outerHeight() );
         inner.css('maxWidth', stripWidth+'px');
 
@@ -98,11 +96,12 @@
         prev.prop('disabled', false);
         next.prop('disabled', false);
 
-
         items.eq(0).find('img').one("load", function() {
-            viewPort.height( items.eq(0).outerHeight() ); /* on load */
+            var h = items.eq(0).outerHeight(); /* On load provide height */
+            viewPort.height( h );
+            strip.height( h );
         }).each(function() {
-            if(this.complete) $(this).load(); /* Run load for cached images */
+            if(this.complete) $(this).load(); /* Ensure to run load for cached images */
         });
     }
 
@@ -137,15 +136,15 @@
 
         for(i=0; i<itemsPos.length; ++i){
             if(itemsPos[i] > (viewPortWidth + (0-left)) && i>0){
-                //console.log('if (', itemsPos[i], '>', viewPortWidth, '+', (0-left), '=', viewPortWidth + (0-left) , ')'); */
-                scrollAmount = -itemsPos[i-1]; /* Negate */
+                //console.log('if (', itemsPos[i], '>', viewPortWidth, '+', (0-left), '=', viewPortWidth + (0-left) , ')');
+                scrollAmount = -itemsPos[i-1]; // Negate
 
                 break;
             }
         }
 
         if( settings.wrap ) {
-            /* Overflow check */
+            // Overflow check
             if (scrollAmount < nextLimit) {
                 scrollAmount = nextLimit;
             }
@@ -166,7 +165,7 @@
             strip.css('left', scrollAmount + 'px');
 
         } else {
-            /* Overflow check */
+            // Overflow check
             if (scrollAmount < nextLimit) {
                 scrollAmount = nextLimit;
             }
@@ -198,14 +197,14 @@
 
         for(i=itemsPos.length; i>0; --i){
             if(itemsPos[i] < (Math.abs(left) - viewPortWidth) && i<itemsPos.length){
-                scrollAmount = -itemsPos[i+1]; /* Negate */
+                scrollAmount = -itemsPos[i+1]; // Negate
 
                 break;
             }
         }
 
         if( settings.wrap ) {
-            /* Overflow check */
+            // Overflow check
             if (scrollAmount > 0) {
                 scrollAmount = 0;
             }
@@ -225,7 +224,7 @@
 
         } else {
 
-            /* Overflow check */
+            // Overflow check
             if(scrollAmount > 0 ) {
                 scrollAmount = 0;
             }
