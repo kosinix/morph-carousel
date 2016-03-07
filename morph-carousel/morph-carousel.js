@@ -1,12 +1,10 @@
 /*
- * Morph Carousel 1.0.0
+ * Morph Carousel 2.1.2
  * https://github.com/kosinix/morph-carousel
  *
- *
  * Copyright 2015, Nico Amarilla
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
+ * License: GPLv3
+ * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 (function($){
     var methods = {
