@@ -2,8 +2,8 @@
 
 A no-frills lightweight carousel. Period.
 
-[Website](http://kosinix.github.io/morph-carousel/)
+[Demo](http://kosinix.github.io/morph-carousel/)
 
 ## License
 
-- GPLv2
+- GPLv3
