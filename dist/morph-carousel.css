@@ -1,0 +1,100 @@
+.morph-carousel-strip:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.morph-carousel {
+    box-sizing: border-box;
+    padding-left: 25px; /* Must match prev button width*/
+    padding-right: 25px; /* Must match next button width*/
+    background: #000000;
+    text-align: center;
+    position: relative;
+}
+.morph-carousel > .morph-carousel-item{
+    display: none;
+}
+.morph-carousel-viewport{
+    /*height: x; !* calculate *!*/
+    position: relative;
+    overflow: hidden;
+}
+.morph-carousel-inner {
+    /*max-width: x;!* calculate *!*/
+    margin: 0 auto;
+    position: relative;
+}
+.morph-carousel-strip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+}
+.morph-carousel-item {
+    display: inline-block;
+    padding: 6px 3px;
+}
+.morph-carousel-item a{
+    display: block;
+}
+.morph-carousel-item img {
+    display: block;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+}
+.morph-carousel-prev,
+.morph-carousel-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: #000000;
+    width: 25px;
+    color: #ffffff;
+    cursor: pointer;
+    opacity: 0.9;
+    border: 0;
+    padding: 0;
+}
+.morph-carousel-prev {
+    left: -25px; /* Must match prev button width*/
+}
+.morph-carousel-prev:after {
+    content: "";
+    position: absolute;
+    /* Right arrow */
+    border-color: transparent white ;
+    border-style: solid;
+    border-width: 5px 5px 5px 0;
+    height: 0;
+    width: 0;
+    left: 50%;
+    top: 50%;
+    margin: -5px 0 0 -2px;
+}
+.morph-carousel-next {
+    right: -25px; /* Must match next button width*/
+}
+.morph-carousel-next:after {
+     content: "";
+     position: absolute;
+     /* Right arrow */
+     border-color: transparent white ;
+     border-style: solid;
+     border-width: 5px 0 5px 5px;
+     height: 0;
+     width: 0;
+     left: 50%;
+     top: 50%;
+     margin: -5px 0 0 -2px;
+ }
+.morph-carousel-prev:disabled,
+.morph-carousel-next:disabled {
+    cursor: default;
+}
+.morph-carousel-prev:disabled:after,
+.morph-carousel-next:disabled:after {
+    border-color: transparent #444;
+}
